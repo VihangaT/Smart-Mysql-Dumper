@@ -54,9 +54,15 @@ public class dbdumper extends TimerTask {
                     Process runtimeprocess =Runtime.getRuntime().exec(execute);
                     int processComplete = runtimeprocess.waitFor();
                     LOG.info("Process Execution Completed");
-                    
-                }
+                    /*It will return 0 if the process in completed,otherwise it'll send some other value*/
 
+                    if (processComplete==0){
+                        LOG.info(db+ " Backup Completed");
+                    }else {
+                        LOG.warn("Backup Failed");
+                    }
+                }
+        LOG.info("");
 
         }catch (Exception ex){
             LOG.warn("Error"+ex.getMessage());
