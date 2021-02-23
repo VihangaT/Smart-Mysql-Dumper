@@ -11,6 +11,7 @@ import java.util.Properties;
 import java.util.TimerTask;
 
 import com.tech.vihanga.db.dumper.utils.DBarrayMaker;
+import com.tech.vihanga.db.dumper.utils.pattern;
 import com.tech.vihanga.db.dumper.utils.propertyreader;
 import org.slf4j.Logger;
 import  org.slf4j.LoggerFactory;
@@ -48,7 +49,7 @@ public class dbdumper extends TimerTask {
             LOG.info("Iterating the databases array");
                 for (String db:databasesArray){
                     LOG.info("Taking the backup of "+db);
-                    String execute=mysqldumpPath+"/mysqldump -h"+ DBurl +"-u" +username +" -p" +password +" " + db + " -r " + savePath+"/"+db+".sql";
+                    String execute=mysqldumpPath+"/mysqldump -h"+ DBurl +" -u" +username +" -p" +password +" " + db + " -r " + savePath+"/"+db+".sql";
                     LOG.info("To be executed>>>>"+execute);
                     LOG.info("Executing the process");
                     Process runtimeprocess =Runtime.getRuntime().exec(execute);
@@ -62,8 +63,11 @@ public class dbdumper extends TimerTask {
                         LOG.warn("Backup Failed");
                     }
                 }
-        LOG.info("");
+        LOG.info("*****************************************Database Backup Successfull: "+Datesimple+" /"+date+"*****************");
 
+            pattern design=new pattern();
+            design.patternDesigner();
+            LOG.info("End of the scheduled backup!");
         }catch (Exception ex){
             LOG.warn("Error"+ex.getMessage());
             LOG.warn("Error"+ex);
